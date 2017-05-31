@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent-input clean="true" temporary="true">
+<server>
+<repository location="/tmp/install_temp/WAS/repository.config"/>
+<repository location="/tmp/install_temp/JDK1.8/repository.config"/>
+</server>
+<install modify='false'>
+<offering id='com.ibm.websphere.BASE.v90'
+  profile='IBM WebSphere Application Server V9.0'
+  features='core.feature,ejbdeploy,thinclient,embeddablecontainer' installFixes='none'/>
+<offering id='com.ibm.java.jdk.v8'
+  profile='IBM WebSphere Application Server V9.0'
+  features='com.ibm.sdk.8'/>
+</install>
+<profile id='IBM WebSphere Application Server V9.0'
+  installLocation='/opt/IBM/WebSphere/AppServer'>
+<data key='eclipseLocation' value='/opt/IBM/WebSphere/AppServer'/>
+<data key='user.import.profile' value='false'/>
+<data key='cic.selector.nl' value='en'/>
+</profile>
+</agent-input>
+

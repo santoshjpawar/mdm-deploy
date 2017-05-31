@@ -3,12 +3,21 @@
 #
 
 INSTALLER_DIRECTORY=/var/tmp/install_temp
+INSTALLER_ARCHIVE_NAME=mdm-installers.zip
+INSTALLER_SOURCE=http://10.51.234.119:8000/$INSTALLER_ARCHIVE_NAME
 
 #################################################
 # Copy installation files                       #
 #################################################
 # Copy all installation files into $INSTALLER_DIRECTORY from file repository
+cd $INSTALLER_DIRECTORY
+wget $INSTALLER_SOURCE
+unzip $INSTALLER_ARCHIVE_NAME
+rm -rf $INSTALLER_ARCHIVE_NAME
+
 # Copy other supporting files to $INSTALLER_DIRECTORY from Git project
+curr_dir=`dirname $0`
+cp -f $curr_dir/db2-response $curr_dir/db-prepare.sh $curr_dir/env_settings.ini $curr_dir/response $INSTALLER_DIRECTORY/
 
 chmod +x $INSTALLER_DIRECTORY/*.sh
 
@@ -16,6 +25,7 @@ chmod +x $INSTALLER_DIRECTORY/*.sh
 # Preinstallation tasks                         #
 #################################################
 # Install pre-req packages
+yum makecache fast
 yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet
 
 #################################################
@@ -23,10 +33,10 @@ yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 n
 #################################################
 # Extract the installer
 cd $INSTALLER_DIRECTORY
-unzip server.zip -d /var/tmp/install_temp/
+unzip server.zip
 
 # Run the installer
-cd $INSTALLER_DIRECTORY/server
+cd server
 ./db2setup -r $INSTALLER_DIRECTORY/db2-response
 
 # Start the database
@@ -84,7 +94,7 @@ cd $INSTALLER_DIRECTORY
 unzip ibm-mdmce.zip -d /opt/11.6/
 
 # Update environment setting file
-cp -f $INSTALLER_DIRECTORY/env_settings.ini /opt/11.6/MDM/bin/conf
+/usr/bin/cp -f $INSTALLER_DIRECTORY/env_settings.ini /opt/11.6/MDM/bin/conf
 
 # Update bash profile
 echo ". /home/db2inst1/sqllib/db2profile" >> ~/.bash_profile

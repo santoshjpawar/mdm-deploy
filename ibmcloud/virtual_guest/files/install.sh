@@ -130,3 +130,5 @@ echo y | ./create_appsvr.sh
 echo y | ./install_war.sh
 cd $TOP/bin/go
 ./start_local.sh
+
+echo "MDM started successfully"

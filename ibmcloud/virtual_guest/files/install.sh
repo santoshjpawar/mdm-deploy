@@ -10,14 +10,16 @@ INSTALLER_SOURCE=http://10.51.234.119:8000/$INSTALLER_ARCHIVE_NAME
 # Copy installation files                       #
 #################################################
 # Copy all installation files into $INSTALLER_DIRECTORY from file repository
+mkdir -p $INSTALLER_DIRECTORY
 cd $INSTALLER_DIRECTORY
+exit 0
 wget $INSTALLER_SOURCE
 unzip $INSTALLER_ARCHIVE_NAME
 rm -rf $INSTALLER_ARCHIVE_NAME
 
 # Copy other supporting files to $INSTALLER_DIRECTORY from Git project
 curr_dir=`dirname $0`
-cp -f $curr_dir/db2-response $curr_dir/db-prepare.sh $curr_dir/env_settings.ini $curr_dir/response $INSTALLER_DIRECTORY/
+cp -f $curr_dir/../../../db2-response $curr_dir/../../../db-prepare.sh $curr_dir/../../../env_settings.ini $curr_dir/../../../response $INSTALLER_DIRECTORY/
 
 chmod +x $INSTALLER_DIRECTORY/*.sh
 

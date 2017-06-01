@@ -4,7 +4,7 @@
 
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
-INSTALLER_SOURCE=http://169.45.158.182:8000/$INSTALLER_ARCHIVE_NAME
+INSTALLER_SOURCE=http://10.152.5.223:8000/$INSTALLER_ARCHIVE_NAME
 
 #################################################
 # Copy installation files                       #
@@ -12,10 +12,12 @@ INSTALLER_SOURCE=http://169.45.158.182:8000/$INSTALLER_ARCHIVE_NAME
 # Copy all installation files into $INSTALLER_DIRECTORY from file repository
 mkdir -p $INSTALLER_DIRECTORY
 cd $INSTALLER_DIRECTORY
+touch debug1
 wget $INSTALLER_SOURCE
+touch debug2
 unzip $INSTALLER_ARCHIVE_NAME
 rm -rf $INSTALLER_ARCHIVE_NAME
-
+touch debug3
 # Copy other supporting files to $INSTALLER_DIRECTORY from Git project
 curr_dir=`dirname $0`
 cp -f $curr_dir/../../../db2-response $curr_dir/../../../db-prepare.sh $curr_dir/../../../env_settings.ini $curr_dir/../../../response $INSTALLER_DIRECTORY/

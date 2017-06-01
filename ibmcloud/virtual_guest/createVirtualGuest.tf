@@ -55,7 +55,7 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x install.sh",
-      "bash install.sh",
+      "bash install.sh > /var/logs/mdm-install.log",
       "bash -c 'if [ \"${var.remove_temp_private_key}\" == \"true\" ] ; then KEY=$(echo \"${var.temp_public_key}\" | cut -c 9-); cd /root/.ssh; grep -v $KEY authorized_keys > authorized_keys.new; mv -f authorized_keys.new authorized_keys; chmod 600 authorized_keys; fi'",
       "${var.module_custom_commands}"
     ]

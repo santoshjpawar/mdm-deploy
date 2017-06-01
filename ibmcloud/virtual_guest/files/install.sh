@@ -7,29 +7,22 @@ INSTALLER_ARCHIVE_NAME=mdm-installers.zip
 INSTALLER_SOURCE=http://10.152.5.223:8000/$INSTALLER_ARCHIVE_NAME
 
 #################################################
-# Copy installation files                       #
-#################################################
-# Copy all installation files into $INSTALLER_DIRECTORY from file repository
-mkdir -p $INSTALLER_DIRECTORY
-cd $INSTALLER_DIRECTORY
-touch debug1
-wget $INSTALLER_SOURCE
-touch debug2
-unzip $INSTALLER_ARCHIVE_NAME
-rm -rf $INSTALLER_ARCHIVE_NAME
-touch debug3
-# Copy other supporting files to $INSTALLER_DIRECTORY from Git project
-curr_dir=`dirname $0`
-cp -f $curr_dir/../../../db2-response $curr_dir/../../../db-prepare.sh $curr_dir/../../../env_settings.ini $curr_dir/../../../response $INSTALLER_DIRECTORY/
-
-chmod +x $INSTALLER_DIRECTORY/*.sh
-
-#################################################
 # Preinstallation tasks                         #
 #################################################
 # Install pre-req packages
 yum makecache fast
 yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet
+
+#################################################
+# Copy installation files                       #
+#################################################
+# Copy all installation files into $INSTALLER_DIRECTORY from file repository
+mkdir -p $INSTALLER_DIRECTORY
+cd $INSTALLER_DIRECTORY
+wget $INSTALLER_SOURCE
+unzip $INSTALLER_ARCHIVE_NAME
+rm -rf $INSTALLER_ARCHIVE_NAME
+chmod +x $INSTALLER_DIRECTORY/*.sh
 
 #################################################
 # DB2 installation                              #

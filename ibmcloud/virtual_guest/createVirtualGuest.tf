@@ -15,12 +15,6 @@ variable "disk1" {}
 variable "ssh_user" {
   default = "root"
 }
-variable "module_script_variables" {
-  default = ""
-}
-variable "module_sample_application_url" {
-  default = ""
-}
 variable "module_custom_commands" {
   default = "sleep 1"
 }

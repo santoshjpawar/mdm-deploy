@@ -4,7 +4,7 @@
 
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
-INSTALLER_SOURCE=http://10.51.234.119:8000/$INSTALLER_ARCHIVE_NAME
+INSTALLER_SOURCE=http://169.45.158.182:8000/$INSTALLER_ARCHIVE_NAME
 
 #################################################
 # Copy installation files                       #
@@ -12,7 +12,6 @@ INSTALLER_SOURCE=http://10.51.234.119:8000/$INSTALLER_ARCHIVE_NAME
 # Copy all installation files into $INSTALLER_DIRECTORY from file repository
 mkdir -p $INSTALLER_DIRECTORY
 cd $INSTALLER_DIRECTORY
-exit 0
 wget $INSTALLER_SOURCE
 unzip $INSTALLER_ARCHIVE_NAME
 rm -rf $INSTALLER_ARCHIVE_NAME

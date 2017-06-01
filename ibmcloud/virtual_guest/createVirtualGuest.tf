@@ -42,6 +42,7 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
     user        = "${var.ssh_user}"
     private_key = "${var.temp_private_key}"
     host        = "${self.ipv4_address}"
+    timeout     = "30m"
   }
   
   # Create the installation script

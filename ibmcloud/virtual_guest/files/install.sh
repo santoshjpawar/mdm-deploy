@@ -11,7 +11,7 @@ INSTALLER_SOURCE=http://10.152.5.223:8000/$INSTALLER_ARCHIVE_NAME
 #################################################
 # Install pre-req packages
 yum makecache fast
-yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet
+yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet > /dev/null
 
 #################################################
 # Copy installation files                       #
@@ -20,7 +20,8 @@ yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 n
 mkdir -p $INSTALLER_DIRECTORY
 cd $INSTALLER_DIRECTORY
 wget $INSTALLER_SOURCE
-unzip $INSTALLER_ARCHIVE_NAME
+unzip $INSTALLER_ARCHIVE_NAME > /dev/null
+echo "Extracted $INSTALLER_ARCHIVE_NAME"
 rm -rf $INSTALLER_ARCHIVE_NAME
 chmod +x $INSTALLER_DIRECTORY/*.sh
 
@@ -30,7 +31,8 @@ chmod +x $INSTALLER_DIRECTORY/*.sh
 echo "***** DB2 installation started *****"
 # Extract the installer
 cd $INSTALLER_DIRECTORY
-unzip server.zip
+unzip server.zip > /dev/null
+echo "Extracted server.zip"
 
 # Run the installer
 cd server
@@ -52,7 +54,8 @@ groupadd -r wasadmin && useradd -r -g wasadmin wasadmin
 
 # Extract the installer
 cd $INSTALLER_DIRECTORY
-unzip ibm-im.zip
+unzip ibm-im.zip > /dev/null
+echo "Extracted ibm-im.zip"
 
 # Run the installer
 cd IM
@@ -69,8 +72,10 @@ echo "***** IM installation finished *****"
 echo "***** WAS installation started *****"
 # Extract the installer
 cd $INSTALLER_DIRECTORY
-unzip ibm-java.zip
-unzip ibm-was.zip
+unzip ibm-java.zip > /dev/null
+echo "Extracted ibm-java.zip"
+unzip ibm-was.zip > /dev/null
+echo "Extracted ibm-was.zip"
 
 # Run the installer
 cd /opt/IBM/InstallationManager/eclipse
@@ -94,7 +99,8 @@ echo "***** WAS installation finished *****"
 echo "***** MDMCE installation started *****"
 # Extract the installer
 cd $INSTALLER_DIRECTORY
-unzip ibm-mdmce.zip -d /opt/11.6/
+unzip ibm-mdmce.zip -d /opt/11.6/ > /dev/null
+echo "Extracted ibm-mdmce.zip"
 
 # Update environment setting file
 /usr/bin/cp -f $INSTALLER_DIRECTORY/env_settings.ini /opt/11.6/MDM/bin/conf

@@ -4,7 +4,7 @@
 
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
-INSTALLER_SOURCE=http://169.45.158.182:8000/$INSTALLER_ARCHIVE_NAME
+INSTALLER_SOURCE=http://10.152.5.223:8000/$INSTALLER_ARCHIVE_NAME
 
 #################################################
 # Preinstallation tasks                         #
@@ -27,6 +27,7 @@ chmod +x $INSTALLER_DIRECTORY/*.sh
 #################################################
 # DB2 installation                              #
 #################################################
+echo "***** DB2 installation started *****"
 # Extract the installer
 cd $INSTALLER_DIRECTORY
 unzip server.zip
@@ -40,10 +41,12 @@ su - db2inst1 -c "db2start"
 
 # Configure PIM database
 su - db2inst1 -c "$INSTALLER_DIRECTORY/db-prepare.sh"
+echo "***** DB2 installation finshed *****"
 
 #################################################
 # IM installation                               #
 #################################################
+echo "***** IM installation started *****"
 # Create user and group to use with websphere and Installation Manager
 groupadd -r wasadmin && useradd -r -g wasadmin wasadmin
 
@@ -58,10 +61,12 @@ cd IM
 # Update file permissions
 cd /opt
 chown -R wasadmin:wasadmin IBM
+echo "***** IM installation finished *****"
 
 #################################################
 # WAS installation                              #
 #################################################
+echo "***** WAS installation started *****"
 # Extract the installer
 cd $INSTALLER_DIRECTORY
 unzip ibm-java.zip
@@ -81,10 +86,12 @@ cd /opt/IBM/WebSphere/AppServer/bin
 # Start WAS
 cd /opt/IBM/WebSphere/AppServer/bin
 ./startServer.sh server1
+echo "***** WAS installation finished *****"
 
 #################################################
 # MDMCE installation                            #
 #################################################
+echo "***** MDMCE installation started *****"
 # Extract the installer
 cd $INSTALLER_DIRECTORY
 unzip ibm-mdmce.zip -d /opt/11.6/
@@ -130,5 +137,6 @@ echo y | ./create_appsvr.sh
 echo y | ./install_war.sh
 cd $TOP/bin/go
 ./start_local.sh
+echo "***** MDMCE installation finished *****"
 
 echo "MDM started successfully"

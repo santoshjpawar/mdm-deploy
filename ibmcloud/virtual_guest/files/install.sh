@@ -6,12 +6,15 @@ INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
 INSTALLER_SOURCE=http://10.152.5.223:8000/$INSTALLER_ARCHIVE_NAME
 
+echo "MDM Installation started at `date`"
+
 #################################################
 # Preinstallation tasks                         #
 #################################################
 # Install pre-req packages
 yum makecache fast
 yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet > /dev/null
+echo "Installed pre-req packages"
 
 #################################################
 # Copy installation files                       #
@@ -19,7 +22,8 @@ yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 n
 # Copy all installation files into $INSTALLER_DIRECTORY from file repository
 mkdir -p $INSTALLER_DIRECTORY
 cd $INSTALLER_DIRECTORY
-wget $INSTALLER_SOURCE
+wget $INSTALLER_SOURCE > /dev/null
+echo "Downloaded $INSTALLER_ARCHIVE_NAME"
 unzip $INSTALLER_ARCHIVE_NAME > /dev/null
 echo "Extracted $INSTALLER_ARCHIVE_NAME"
 rm -rf $INSTALLER_ARCHIVE_NAME
@@ -145,4 +149,5 @@ cd $TOP/bin/go
 ./start_local.sh
 echo "***** MDMCE installation finished *****"
 
+echo "MDM Installation finished at `date`"
 echo "MDM started successfully"

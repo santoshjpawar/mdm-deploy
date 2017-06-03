@@ -22,7 +22,7 @@ echo "Installed pre-req packages"
 # Copy all installation files into $INSTALLER_DIRECTORY from file repository
 mkdir -p $INSTALLER_DIRECTORY
 cd $INSTALLER_DIRECTORY
-wget $INSTALLER_SOURCE > /dev/null
+wget $INSTALLER_SOURCE > /dev/null 2>&1
 echo "Downloaded $INSTALLER_ARCHIVE_NAME"
 unzip $INSTALLER_ARCHIVE_NAME > /dev/null
 echo "Extracted $INSTALLER_ARCHIVE_NAME"

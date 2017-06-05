@@ -5,9 +5,12 @@
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
 USERNAME=mdmdeploy
-PASSWORD=mdmdeploy
-INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@169.45.158.182/$INSTALLER_ARCHIVE_NAME
+VAULT_TOKEN=mdm-token-secret
 
+val=`curl -H "X-Vault-Token: mdm-token-secret" http://169.45.158.182:8200/v1/secret/mdm-filerepo-password  | jq '.data.value'`
+PASSWORD=`echo ${val//\"}`
+INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@169.45.158.182/$INSTALLER_ARCHIVE_NAME
+echo "INSTALLER_SOURCE $INSTALLER_SOURCE"
 echo "MDM Installation started at `date`"
 
 #################################################
@@ -15,7 +18,8 @@ echo "MDM Installation started at `date`"
 #################################################
 # Install pre-req packages
 yum makecache fast
-yum install -y cpan make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet > /dev/null
+yum install -y epel-release > /dev/null
+yum install -y cpan jq make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet > /dev/null
 echo "Installed pre-req packages"
 
 #################################################

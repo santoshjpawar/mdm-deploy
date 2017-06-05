@@ -4,7 +4,9 @@
 
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
-INSTALLER_SOURCE=http://10.152.5.223:8000/$INSTALLER_ARCHIVE_NAME
+USERNAME=mdmdeploy
+PASSWORD=mdmdeploy
+INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@10.152.5.223/$INSTALLER_ARCHIVE_NAME
 
 echo "MDM Installation started at `date`"
 

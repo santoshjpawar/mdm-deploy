@@ -156,4 +156,3 @@ cd $TOP/bin/go
 echo "***** MDMCE installation finished *****"
 
 echo "MDM Installation finished at `date`"
-echo "MDM started successfully, you can access it at http://`hostname -i`:7507/utils/enterLogin.jsp"

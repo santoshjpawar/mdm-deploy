@@ -20,7 +20,6 @@ VAULT_TOKEN=mdm-token-secret
 val=`curl -H "X-Vault-Token: mdm-token-secret" http://169.45.158.182:8200/v1/secret/mdm-filerepo-password  | jq '.data.value'`
 PASSWORD=`echo ${val//\"}`
 INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@169.45.158.182/$INSTALLER_ARCHIVE_NAME
-echo "INSTALLER_SOURCE $INSTALLER_SOURCE"
 echo "MDM Installation started at `date`"
 
 #################################################

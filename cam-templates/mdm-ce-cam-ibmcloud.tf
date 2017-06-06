@@ -41,7 +41,7 @@
   
 	"module": {
     "install_mdm_ibmcloud": {
-      "source": "git::https://github.com/santoshjpawar/mdm-deploy.git?ref=master//ibmcloud/virtual_guest",
+      "source": "git::https://github.com/santoshjpawar/mdm-deploy.git?ref=${var.deployment_size}//ibmcloud/virtual_guest",
       "hostname": "mdm-node-${var.customer}",
       "datacenter": "${var.datacenter}",
       "user_public_key_id": "${ibmcloud_infra_ssh_key.cam_public_key.id}",

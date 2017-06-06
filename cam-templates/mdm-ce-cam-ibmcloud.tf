@@ -44,7 +44,7 @@
       "temp_public_key_id": "${ibmcloud_infra_ssh_key.temp_public_key.id}",
       "temp_public_key": "${tls_private_key.ssh.public_key_openssh}",  
       "temp_private_key": "${tls_private_key.ssh.private_key_pem}",
-      "module_script": "files/install.sh",
+      "module_script": "../files/install.sh",
       "os_reference_code": "CENTOS_7_64",
       "domain": "cam.ibm.com"
     }

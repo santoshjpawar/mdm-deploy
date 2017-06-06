@@ -50,10 +50,7 @@
       "temp_private_key": "${tls_private_key.ssh.private_key_pem}",
       "module_script": "files/install.sh",
       "os_reference_code": "CENTOS_7_64",
-      "domain": "cam.ibm.com",
-      "cores": 2,
-      "memory": 2048,
-      "disk1": 100
+      "domain": "cam.ibm.com"
     }
   },
 	"output": {

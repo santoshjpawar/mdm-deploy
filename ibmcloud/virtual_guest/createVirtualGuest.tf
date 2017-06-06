@@ -9,6 +9,9 @@ variable "module_script" {
 }
 variable "os_reference_code" {}
 variable "domain" {}
+variable "cores" {}
+variable "memory" {}
+variable "disk1" {}
 variable "ssh_user" {
   default = "root"
 }
@@ -27,9 +30,9 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
   network_speed            = 10
   hourly_billing           = true
   private_network_only     = false
-  cores                    = "2"
-  memory                   = "4"
-  disks                    = ["100"]
+  cores                    = "${var.cores}"
+  memory                   = "${var.memory}"
+  disks                    = ["${var.disk1}"]
   dedicated_acct_host_only = true
   local_disk               = false
   ssh_key_ids              = ["${var.user_public_key_id}", "${var.temp_public_key_id}"]
@@ -61,5 +64,5 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
 }
 
 output "public_ip" {
-    value = "${ibmcloud_infra_virtual_guest.softlayer_virtual_guest.ipv4_address}"    
+  value = "${ibmcloud_infra_virtual_guest.softlayer_virtual_guest.ipv4_address}"    
 }

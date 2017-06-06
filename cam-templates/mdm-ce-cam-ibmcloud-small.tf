@@ -37,16 +37,19 @@
   
 	"module": {
     "install_mdm_ibmcloud": {
-      "source": "git::https://github.com/santoshjpawar/mdm-deploy.git?ref=master//ibmcloud/virtual_guest/small",
+      "source": "git::https://github.com/santoshjpawar/mdm-deploy.git?ref=master//ibmcloud/virtual_guest",
       "hostname": "mdm-node-${var.customer}",
       "datacenter": "${var.datacenter}",
       "user_public_key_id": "${ibmcloud_infra_ssh_key.cam_public_key.id}",
       "temp_public_key_id": "${ibmcloud_infra_ssh_key.temp_public_key.id}",
       "temp_public_key": "${tls_private_key.ssh.public_key_openssh}",  
       "temp_private_key": "${tls_private_key.ssh.private_key_pem}",
-      "module_script": "../files/install.sh",
+      "module_script": "files/install.sh",
       "os_reference_code": "CENTOS_7_64",
-      "domain": "cam.ibm.com"
+      "domain": "cam.ibm.com",
+      "cores": 2,
+      "memory": 2048,
+      "disk1": 100
     }
   },
 	"output": {

@@ -14,11 +14,18 @@ echo "Installed pre-req packages"
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
 USERNAME=mdmdeploy
-VAULT_TOKEN=mdm-token-secret
+
+# Generate temporary token
+ENCODED_CREDS="ZTBkYTA1NzQtM2M0Yy02MThjLWUxNWYtMjUyOGFlYTllMGFhOmNjZThiNmY0LWM1MDYtMGUzZS01ODM1LWE1NmNjMDk4NjVhOQo="
+value=`echo "$ENCODED_CREDS" | base64 --decode`
+role_id=`echo $value | cut -d ':' -f 1`
+secret_id=`echo $value | cut -d ':' -f 2`
+VAULT_TOKEN=`curl -k -s -X POST -d "{\"role_id\":\"$role_id\", \"secret_id\":\"$secret_id\"}" http://169.45.158.182:8200/v1/auth/approle/login | jq -r '.auth.client_token'`
 
 # Get the credentials from Vault
-val=`curl -H "X-Vault-Token: mdm-token-secret" http://169.45.158.182:8200/v1/secret/mdm-filerepo-password  | jq '.data.value'`
-PASSWORD=`echo ${val//\"}`
+APPNAME="approleids"
+value=`curl -s -H "X-Vault-Token: $VAULT_TOKEN" http://169.45.158.182:8200/v1/secret/$APPNAME/mdm-filerepo-password | jq -r '.data.mdm_filerepo_password'`
+PASSWORD=`echo ${value//\"}`
 INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@169.45.158.182/$INSTALLER_ARCHIVE_NAME
 echo "MDM Installation started at `date`"
 

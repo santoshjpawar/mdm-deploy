@@ -11,22 +11,24 @@ yum install -y epel-release > /dev/null
 yum install -y cpan jq make openssh-clients perl unzip libaio compat-libstdc++-33 numactl nmap net-tools file telnet > /dev/null
 echo "Installed pre-req packages"
 
+FILE_REPO_IP=169.45.158.182
+FILE_REPO_PORT=8200
 INSTALLER_DIRECTORY=/var/tmp/install_temp
 INSTALLER_ARCHIVE_NAME=mdm-installers.zip
 USERNAME=mdmdeploy
+ENCODED_CREDS="ZTBkYTA1NzQtM2M0Yy02MThjLWUxNWYtMjUyOGFlYTllMGFhOmNjZThiNmY0LWM1MDYtMGUzZS01ODM1LWE1NmNjMDk4NjVhOQo="
 
 # Generate temporary token
-ENCODED_CREDS="ZTBkYTA1NzQtM2M0Yy02MThjLWUxNWYtMjUyOGFlYTllMGFhOmNjZThiNmY0LWM1MDYtMGUzZS01ODM1LWE1NmNjMDk4NjVhOQo="
 value=`echo "$ENCODED_CREDS" | base64 --decode`
 role_id=`echo $value | cut -d ':' -f 1`
 secret_id=`echo $value | cut -d ':' -f 2`
-VAULT_TOKEN=`curl -k -s -X POST -d "{\"role_id\":\"$role_id\", \"secret_id\":\"$secret_id\"}" http://169.45.158.182:8200/v1/auth/approle/login | jq -r '.auth.client_token'`
+VAULT_TOKEN=`curl -k -s -X POST -d "{\"role_id\":\"$role_id\", \"secret_id\":\"$secret_id\"}" http://${FILE_REPO_IP}:${FILE_REPO_PORT}/v1/auth/approle/login | jq -r '.auth.client_token'`
 
 # Get the credentials from Vault
 APPNAME="approleids"
-value=`curl -s -H "X-Vault-Token: $VAULT_TOKEN" http://169.45.158.182:8200/v1/secret/$APPNAME/mdm-filerepo-password | jq -r '.data.mdm_filerepo_password'`
+value=`curl -s -H "X-Vault-Token: $VAULT_TOKEN" http://${FILE_REPO_IP}:${FILE_REPO_PORT}/v1/secret/${APPNAME}/mdm-filerepo-password | jq -r '.data.mdm_filerepo_password'`
 PASSWORD=`echo ${value//\"}`
-INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@169.45.158.182/$INSTALLER_ARCHIVE_NAME
+INSTALLER_SOURCE=http://${USERNAME}:${PASSWORD}@${FILE_REPO_IP}/$INSTALLER_ARCHIVE_NAME
 echo "MDM Installation started at `date`"
 
 #################################################

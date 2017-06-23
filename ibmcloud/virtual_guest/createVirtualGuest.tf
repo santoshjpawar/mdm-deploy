@@ -66,3 +66,7 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
 output "public_ip" {
   value = "${ibmcloud_infra_virtual_guest.softlayer_virtual_guest.ipv4_address}"    
 }
+
+# Test commit-1
+# Test commit-2
+# Test commit-3

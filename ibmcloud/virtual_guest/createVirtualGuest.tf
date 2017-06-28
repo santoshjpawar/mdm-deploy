@@ -28,6 +28,7 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
   domain                   = "${var.domain}"
   datacenter               = "${var.datacenter}"
   network_speed            = 10
+  private_network_only     = true
   hourly_billing           = true
   private_network_only     = false
   cores                    = "${var.cores}"

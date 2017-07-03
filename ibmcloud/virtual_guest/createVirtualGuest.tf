@@ -67,5 +67,3 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
 output "public_ip" {
   value = "${ibmcloud_infra_virtual_guest.softlayer_virtual_guest.ipv4_address}"    
 }
-# Line-master
-# Line-santosh

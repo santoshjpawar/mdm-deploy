@@ -30,7 +30,7 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
   network_speed            = 10
   private_network_only     = true
   hourly_billing           = true
-  private_network_only     = true
+  private_network_only     = false
   cores                    = "${var.cores}"
   memory                   = "${var.memory}"
   disks                    = ["${var.disk1}"]
@@ -67,5 +67,3 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
 output "public_ip" {
   value = "${ibmcloud_infra_virtual_guest.softlayer_virtual_guest.ipv4_address}"    
 }
-# Line-master
-# Line-santosh

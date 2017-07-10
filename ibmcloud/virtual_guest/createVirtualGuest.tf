@@ -30,7 +30,7 @@ resource "ibmcloud_infra_virtual_guest" "softlayer_virtual_guest" {
   network_speed            = 10
   private_network_only     = true
   hourly_billing           = true
-  private_network_only     = false
+  private_network_only     = true
   cores                    = "${var.cores}"
   memory                   = "${var.memory}"
   disks                    = ["${var.disk1}"]
